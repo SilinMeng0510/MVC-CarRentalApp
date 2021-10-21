@@ -17,10 +17,4 @@ public class Administer {
         return phone;
     }
 
-    public boolean verifySSN(int ssn){
-        if (SSN == ssn){
-            return true;
-        }
-        return false;
-    }
 }
