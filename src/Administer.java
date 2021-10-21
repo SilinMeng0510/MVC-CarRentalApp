@@ -1,9 +1,9 @@
 public class Administer {
     private String name;
-    private int phone;
+    private String phone;
     private final int SSN;
 
-    public Administer(String name, int phone, int ssn){
+    public Administer(String name, String phone, int ssn){
         this.name = name;
         this.phone = phone;
         this.SSN = ssn;
@@ -13,7 +13,7 @@ public class Administer {
         return name;
     }
 
-    public int getPhone(){
+    public String getPhone(){
         return phone;
     }
 

@@ -1,9 +1,9 @@
 public class Customer {
     private String name;
-    private int phone;
+    private String phone;
     private final int SSN;
 
-    public Customer(String name, int phone, int ssn){
+    public Customer(String name, String phone, int ssn){
         this.name = name;
         this.phone = phone;
         this.SSN = ssn;
@@ -13,15 +13,9 @@ public class Customer {
         return name;
     }
 
-    public int getPhone(){
+    public String getPhone(){
         return phone;
     }
 
-    public boolean verifySSN(int ssn){
-        if (SSN == ssn){
-            return true;
-        }
-        return false;
-    }
 
 }
