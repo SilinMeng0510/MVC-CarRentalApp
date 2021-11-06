@@ -1,12 +1,12 @@
+package Model.user;
+
 public class Customer {
     private String name;
     private String phone;
-    private final int SSN;
 
-    public Customer(String name, String phone, int ssn){
+    public Customer(String name, String phone){
         this.name = name;
         this.phone = phone;
-        this.SSN = ssn;
     }
 
     public String getName(){
