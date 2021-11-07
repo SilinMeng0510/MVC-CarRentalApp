@@ -1,4 +1,4 @@
-package Model.user;
+package Model.car;
 
 import java.util.ArrayList;
 

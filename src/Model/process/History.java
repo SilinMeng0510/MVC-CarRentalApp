@@ -1,4 +1,4 @@
-package Model.user;
+package Model.process;
 
 import java.util.ArrayList;
 

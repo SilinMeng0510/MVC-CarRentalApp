@@ -1,4 +1,6 @@
-package Model.user;
+package Model.car;
+
+import Model.car.Time;
 
 import java.util.ArrayList;
 
