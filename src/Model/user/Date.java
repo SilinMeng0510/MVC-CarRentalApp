@@ -7,8 +7,8 @@ public class Date {
     private int[] DAYS_PER_MONTH;
     private int MONTHS_PER_YEAR;
 
-    public int Data(int month, int year) {
-        return data;
+    public Date(int month, int year) {
+
     }
 
     public String getData() {
