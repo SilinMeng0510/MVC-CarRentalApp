@@ -1,4 +1,6 @@
-package Model.user;
+package Model.car;
+
+import java.util.Date;
 
 public class Time {
     private Date fromDate;

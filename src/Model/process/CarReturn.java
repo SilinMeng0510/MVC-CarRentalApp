@@ -1,4 +1,6 @@
-package Model.user;
+package Model.process;
+
+import Model.process.CarReservation;
 
 public class CarReturn {
     private String report;
