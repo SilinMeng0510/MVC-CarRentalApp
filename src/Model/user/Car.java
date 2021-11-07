@@ -8,7 +8,7 @@ public class Car {
     private int code;
     private ArrayList<Time> schedule;
 
-    public Car (String model, int year, int code) {
+    public Car(String model, int year, int code) {
 
     }
 
