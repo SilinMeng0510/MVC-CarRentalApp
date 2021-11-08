@@ -4,16 +4,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeSet;
 
-public class Car implements Comparable<Car>{
+public class Car implements Comparable<Car>, Item{
     private String model;
     private String company;
     private String year;
+    private double price;
     private TreeSet<Time> schedule;
 
-    public Car(String model, String company, String year) {
+    public Car(String model, String company, String year, double price) {
             this.model = model.toUpperCase();
+            this.price = price;
             this.company = company.toUpperCase();
             this.year = year;
+    }
+
+    public double getPrice(){
+        return price;
     }
 
     public void addTime(Time t){

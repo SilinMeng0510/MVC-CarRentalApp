@@ -17,7 +17,7 @@ public class Applicaion {
         Customer customer = new Customer("tester", "619-000-0000");
         Administer administer = new Administer("admin", "619-111-1111");
         Time time = new Time(LocalDate.parse("2021-07-01"), LocalDate.parse("2021-10-01"));
-        Car car = new Car("Tesla", "Y", "2021");
+        Car car = new Car("Tesla", "Y", "2021", 64);
 
         CarReservation reservation = new CarReservation(car, customer, administer, time);
         System.out.println(reservation.getCustomer().getName());
