@@ -1,12 +1,13 @@
+package Model.user;
+
 public class Administer {
     private String name;
     private String phone;
-    private final int SSN;
 
-    public Administer(String name, String phone, int ssn){
+
+    public Administer(String name, String phone){
         this.name = name;
         this.phone = phone;
-        this.SSN = ssn;
     }
 
     public String getName(){
