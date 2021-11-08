@@ -1,16 +1,14 @@
 package Model.car;
 
-import Model.car.Time;
-
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Car {
     private String model;
     private int year;
-    private int code;
     private ArrayList<Time> schedule;
 
-    public Car(String model, int year, int code) {
+    public Car(String model, int year, Time time) {
 
     }
 
@@ -22,15 +20,32 @@ public class Car {
         return year;
     }
 
-    public int getCode() {
-        return code;
+    public ArrayList<Time> getSchedule(){
+        return schedule;
     }
 
-    public void addTime(Time time) {
+    public boolean checkTime(){
+        return false;
+    }
+}
+
+class Time {
+    private Date fromDate;
+    private Date toDate;
+
+    public Time(Date fromDate, Date toDate) {
 
     }
 
-    public void cancelTime(Time time) {
+    public Date getFromDate() {
+        return fromDate;
+    }
 
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public String ToString() {
+        return null;
     }
 }

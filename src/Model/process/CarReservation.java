@@ -3,8 +3,8 @@ package Model.process;
 import Model.user.Administer;
 import Model.car.Car;
 import Model.user.Customer;
-import Model.car.Time;
 
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class CarReservation {
@@ -12,27 +12,25 @@ public class CarReservation {
     private Time time;
     private Customer customer;
     private Administer administer;
-    private int reservationID;
-    private static int reservationCount;
-    private static ArrayList<CarReservation> list;
 
     public CarReservation(Customer customer, Administer administer, Time time) {
 
     }
 
-    public boolean checkAvailability(int code) {
-        return true;
+    public Car getCar(){
+        return car;
     }
 
-    public void confirm(Car car) {
+    public Customer getCustomer(){
+        return customer;
+    }
 
+    public Administer getAdminister(){
+        return administer;
     }
 
     public String getReservationData() {
-        return null;
+        return time.toString();
     }
 
-    public void cancel() {
-
-    }
 }
