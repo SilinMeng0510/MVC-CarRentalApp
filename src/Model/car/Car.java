@@ -9,7 +9,8 @@ public class Car {
     private ArrayList<Time> schedule;
 
     public Car(String model, int year, Time time) {
-
+            this.model=model;
+            this.year=year;
     }
 
     public String getModel() {
@@ -27,25 +28,5 @@ public class Car {
     public boolean checkTime(){
         return false;
     }
-}
 
-class Time {
-    private Date fromDate;
-    private Date toDate;
-
-    public Time(Date fromDate, Date toDate) {
-
-    }
-
-    public Date getFromDate() {
-        return fromDate;
-    }
-
-    public Date getToDate() {
-        return toDate;
-    }
-
-    public String ToString() {
-        return null;
-    }
 }
