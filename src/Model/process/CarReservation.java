@@ -1,10 +1,10 @@
 package Model.process;
 
+import Model.car.Time;
 import Model.user.Administer;
 import Model.car.Car;
 import Model.user.Customer;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class CarReservation {
@@ -13,8 +13,11 @@ public class CarReservation {
     private Customer customer;
     private Administer administer;
 
-    public CarReservation(Customer customer, Administer administer, Time time) {
-
+    public CarReservation(Car car, Customer customer, Administer administer, Time time) {
+        this.car=car;
+        this.customer=customer;
+        this.administer=administer;
+        this.time=time;
     }
 
     public Car getCar(){
