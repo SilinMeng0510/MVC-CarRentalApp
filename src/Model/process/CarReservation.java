@@ -1,11 +1,10 @@
 package Model.process;
 
+import Model.car.Car;
 import Model.car.Time;
 import Model.user.Administer;
-import Model.car.Car;
 import Model.user.Customer;
 
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class CarReservation {
@@ -13,8 +12,9 @@ public class CarReservation {
     private Time time;
     private Customer customer;
     private Administer administer;
+    private String des;
 
-    public CarReservation(Car car, Customer customer, Administer administer, Time time,TreeSet<Car> reservations) throws Exception{
+    public CarReservation(Car car, Customer customer, Administer administer, Time time,TreeSet<Car> reservations,String des) throws Exception{
         for (Car c : reservations){
             if (c.compareTo(car) == 0){
                 car = c;
@@ -30,6 +30,7 @@ public class CarReservation {
         this.customer = customer;
         this.administer = administer;
         this.time = time;
+        this.des=des;
     }
 
     public Car getCar(){
@@ -47,5 +48,7 @@ public class CarReservation {
     public String getReservationDate() {
         return time.toString();
     }
+
+    public String getDes(){return this.des;}
 
 }

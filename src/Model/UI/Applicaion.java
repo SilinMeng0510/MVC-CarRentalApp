@@ -23,8 +23,7 @@ public class Applicaion {
         Car car = new Car("Tesla", "Y", "2021", 64);
 
 
-        CarReservation reservation = new CarReservation(car, customer, administer, time,Car_booked);
+        CarReservation reservation = new CarReservation(car, customer, administer, time,Car_booked,"test");
         System.out.println(reservation.getCustomer().getName());
-
     }
 }
