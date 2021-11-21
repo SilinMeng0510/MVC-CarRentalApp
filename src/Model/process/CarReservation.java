@@ -13,9 +13,8 @@ public class CarReservation {
     private Time time;
     private Customer customer;
     private Administer administer;
-    private static TreeSet<Car> reservations;
 
-    public CarReservation(Car car, Customer customer, Administer administer, Time time) throws Exception{
+    public CarReservation(Car car, Customer customer, Administer administer, Time time,TreeSet<Car> reservations) throws Exception{
         for (Car c : reservations){
             if (c.compareTo(car) == 0){
                 car = c;
@@ -23,7 +22,7 @@ public class CarReservation {
             }
         }
         this.car = car;
-        if (car.checkTime(time)){
+        if (!car.checkTime(time)){
             throw new Exception("Invalid Date");
         }
         car.addTime(time);
