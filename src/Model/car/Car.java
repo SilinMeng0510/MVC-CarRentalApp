@@ -12,6 +12,9 @@ public class Car implements Comparable<Car>, Item{
     private TreeSet<Time> schedule;
 
     public Car(String model, String company, String year, double price) {
+            if(schedule==null){
+                schedule=new TreeSet<>();
+            }
             this.model = model.toUpperCase();
             this.price = price;
             this.company = company.toUpperCase();
@@ -43,9 +46,12 @@ public class Car implements Comparable<Car>, Item{
     }
 
     public boolean checkTime(Time time){
-        for (Time t : schedule){
-            if (t.compareTo(time) == 0){
-                return false;
+        if(schedule!=null){
+            for(Time t:schedule){
+                if(time.getToDate().isAfter(t.getFromDate())&&time.getFromDate().isBefore(t.getToDate())){
+                    System.out.print("time is invalid");
+                    return false;
+                }
             }
         }
         return true;
