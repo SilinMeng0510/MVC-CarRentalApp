@@ -1,5 +1,6 @@
 package Model.UI;
 
+import Model.car.Car;
 import Model.car.Time;
 import Model.process.CarReservation;
 
@@ -20,7 +21,11 @@ public class GUI {
         JPanel panel = new JPanel();
         frame.getContentPane();
 
-        // Add button
+        // Add Cars
+        JButton addCar=new JButton("add Car");
+        addCar.setBounds(900,150,150,150);
+        addCar.addActionListener(e->addCarOption());
+
         JButton addApp=new JButton("add Reservation");
         addApp.setBounds(900,150,150,150);
        // addApp.addActionListener(e->addOption());
@@ -56,6 +61,45 @@ public class GUI {
         frame.setVisible(true);
     }
 
+    private static void addCarOption(){
+        JFrame frame = new JFrame("Add an Car");
+        JPanel panel = new JPanel();
+        frame.getContentPane();
+        frame.setPreferredSize(new Dimension(300,300));
+        JLabel model = new JLabel("plz enter your model name:");
+        JLabel company = new JLabel("plz enter your company name");
+        JLabel year = new JLabel("plz enter the year :");
+       // JLabel price = new JLabel("plz enter the prie");
+
+        JTextField modelTXT= new JTextField(20);
+        JTextField companyTXT = new JTextField(20);
+        JTextField yearTXT = new JTextField(20);
+       // JTextField priceT = new JTextField(20);
+
+        panel.add(model);
+        panel.add(modelTXT);
+        panel.add(company);
+        panel.add(companyTXT);
+        panel.add(year);
+        panel.add(yearTXT);
+
+
+        JButton button = new JButton("add");
+        // add a listener to button
+
+        button.addActionListener(e -> {
+            Car car=new Car(modelTXT.getText(),companyTXT.getText(),yearTXT.getText(),0.0);
+           manager.addCars(car);
+        });
+        panel.add(button);
+
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.add(panel);
+        frame.setSize(500,200);
+        frame.setVisible(true);
+
+    }
     private static void viewOption() {
         JFrame frame = new JFrame("Options");
         JPanel panel = new JPanel();

@@ -15,6 +15,10 @@ public class ResearvationManager {
             carReservations.remove(carReservations.get(des));
         }
     }
+
+    public void addCars(Car car){
+        cars.add(car);
+    }
     public boolean addReservation(CarReservation reservation)
     {
         if (!carReservations.containsKey(reservation.getDes()))
