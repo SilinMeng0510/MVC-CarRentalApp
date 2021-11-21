@@ -7,8 +7,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class ResearvationManager {
-    TreeMap<String,CarReservation> carReservations;
-    TreeSet<Car> cars;
+    TreeMap<String,CarReservation> carReservations=new TreeMap<>();
+    TreeSet<Car> cars=new TreeSet<>();
 
     private void deleteReservation(String des){
         if(carReservations.containsKey(des)){
