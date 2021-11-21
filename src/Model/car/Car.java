@@ -2,31 +2,63 @@ package Model.car;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeSet;
 
-public class Car {
+public class Car implements Comparable<Car>, Item{
     private String model;
-    private int year;
-    private ArrayList<Time> schedule;
+    private String company;
+    private String year;
+    private double price;
+    private TreeSet<Time> schedule;
 
-    public Car(String model, int year, Time time) {
-            this.model=model;
-            this.year=year;
+    public Car(String model, String company, String year, double price) {
+            this.model = model.toUpperCase();
+            this.price = price;
+            this.company = company.toUpperCase();
+            this.year = year;
+    }
+
+    public double getPrice(){
+        return price;
+    }
+
+    public void addTime(Time t){
+        schedule.add(t);
     }
 
     public String getModel() {
         return model;
     }
 
-    public int getYear() {
+    public String getCompany(){
+        return company;
+    }
+
+    public String getYear() {
         return year;
     }
 
-    public ArrayList<Time> getSchedule(){
+    public TreeSet<Time> getSchedule(){
         return schedule;
     }
 
-    public boolean checkTime(){
-        return false;
+    public boolean checkTime(Time time){
+        for (Time t : schedule){
+            if (t.compareTo(time) == 0){
+                return false;
+            }
+        }
+        return true;
     }
 
+    @Override
+    public int compareTo(Car o) {
+        if (model.compareTo(o.model) != 0){
+            return model.compareTo(o.model);
+        }
+        else if (company.compareTo(o.company) != 0){
+            return company.compareTo(o.company);
+        }
+        return year.compareTo(o.year);
+    }
 }
