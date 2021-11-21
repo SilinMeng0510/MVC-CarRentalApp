@@ -1,9 +1,9 @@
-package Model.process;
+package model.Reservation;
 
-import Model.car.Car;
-import Model.car.Time;
-import Model.user.Administer;
-import Model.user.Customer;
+import model.car.Car;
+import model.car.Time;
+import model.user.Administer;
+import model.user.Customer;
 
 import java.util.TreeSet;
 

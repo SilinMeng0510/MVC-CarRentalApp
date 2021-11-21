@@ -1,17 +1,16 @@
-package Model.UI;
+package model.Reservation;
 
-import Model.car.Car;
-import Model.process.CarReservation;
+import model.car.Car;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class ResearvationManager {
-    TreeMap<String,CarReservation> carReservations=new TreeMap<>();
-    TreeSet<Car> cars=new TreeSet<>();
+    TreeMap<String,CarReservation> carReservations = new TreeMap<>();
+    TreeSet<Car> cars = new TreeSet<>();
 
     private void deleteReservation(String des){
-        if(carReservations.containsKey(des)){
+        if (carReservations.containsKey(des)){
             carReservations.remove(carReservations.get(des));
         }
     }

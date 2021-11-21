@@ -1,15 +1,17 @@
-package Model.UI;
+package view;
 
-import Model.car.Car;
+import model.car.Car;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.TreeSet;
+
 public class GUI {
     enum Action {
         alphabetical, chronological
     }
 
-    public static ResearvationManager manager = new ResearvationManager();
+    public static TreeSet<Car> manager = new TreeSet<>();
 
     public static <DatePicker> void main(String[] args) {
         // frame
@@ -18,14 +20,9 @@ public class GUI {
         frame.getContentPane();
 
         // Add Cars
-        JButton addCar = new JButton("add Car");
+        JButton addCar = new JButton("Car Storage");
         addCar.setBounds(900, 150, 150, 150);
-        addCar.addActionListener(e -> addCarOption());
-
-        //view Cars
-        JButton viewCar = new JButton("view Car");
-        viewCar.setBounds(900, 150, 150, 150);
-        viewCar.addActionListener(e -> viewCarOption());
+        addCar.addActionListener(e -> viewCarOption());
 
         JButton addApp=new JButton("add Reservation");
         addApp.setBounds(900,150,150,150);
@@ -48,7 +45,6 @@ public class GUI {
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
         // Adding buttons
         buttonPane.add(addCar);
-        buttonPane.add(viewCar);
         buttonPane.add(addApp);
         buttonPane.add(deleteApp);
 
@@ -62,63 +58,52 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    private static void addCarOption() {
-        JFrame frame = new JFrame("Add an Car");
-        JPanel panel = new JPanel();
+
+    private static void viewCarOption() {
+        JFrame frame = new JFrame("Car Storage");
         frame.getContentPane();
         frame.setPreferredSize(new Dimension(300, 300));
-        JLabel model = new JLabel("plz enter your model name:");
-        JLabel company = new JLabel("plz enter your company name");
-        JLabel year = new JLabel("plz enter the year :");
-        // JLabel price = new JLabel("plz enter the prie");
 
+        // view the car storage
+        JPanel view = new JPanel();
+        for(Car car: manager){
+            String s= car.getCompany() + " " + car.getModel() + " " + car.getYear();
+            JTextArea listDisplay = new JTextArea();
+            System.out.println(s);
+            listDisplay.setText(s);
+            view.add(listDisplay);
+        }
+
+        // add car to the storage
+        JPanel add = new JPanel();
+        JLabel model = new JLabel("Model name:");
+        JLabel company = new JLabel("Company name:");
+        JLabel year = new JLabel("Year :");
+        // JLabel price = new JLabel("plz enter the prie");
         JTextField modelTXT = new JTextField(20);
         JTextField companyTXT = new JTextField(20);
         JTextField yearTXT = new JTextField(20);
         // JTextField priceT = new JTextField(20);
+        add.add(model);
+        add.add(modelTXT);
+        add.add(company);
+        add.add(companyTXT);
+        add.add(year);
+        add.add(yearTXT);
 
-        panel.add(model);
-        panel.add(modelTXT);
-        panel.add(company);
-        panel.add(companyTXT);
-        panel.add(year);
-        panel.add(yearTXT);
-
-
-        JButton button = new JButton("add");
+        JButton button = new JButton("Add");
         // add a listener to button
-
         button.addActionListener(e -> {
             Car car = new Car(modelTXT.getText(), companyTXT.getText(), yearTXT.getText(), 0.0);
-            manager.addCars(car);
+            manager.add(car);
         });
-        panel.add(button);
+        add.add(button);
 
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        add.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 90));
+        view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.add(panel);
-        frame.setSize(500, 200);
-        frame.setVisible(true);
-
-    }
-
-    private static void viewCarOption() {
-        JFrame frame = new JFrame("vew Cars");
-        JPanel panel = new JPanel();
-        frame.getContentPane();
-        frame.setPreferredSize(new Dimension(300, 300));
-
-        for(Car car: manager.cars){
-            String s="car: "+car.getCompany()+" "+car.getModel();
-            JTextArea listDisplay = new JTextArea();
-            System.out.println(s);
-            listDisplay.setText(s);
-            panel.add(listDisplay);
-        }
-
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.add(panel);
+        frame.add(view, BorderLayout.NORTH);
+        frame.add(add, BorderLayout.CENTER);
         frame.setSize(500, 200);
         frame.setVisible(true);
 

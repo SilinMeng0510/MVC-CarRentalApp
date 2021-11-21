@@ -1,7 +1,5 @@
-package Model.car;
+package model.car;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.TreeSet;
 
 public class Car implements Comparable<Car>, Item{

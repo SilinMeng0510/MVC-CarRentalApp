@@ -1,4 +1,4 @@
-package Model.car;
+package model.car;
 
 public class Deal implements Item{
     Car car;

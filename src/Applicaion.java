@@ -1,10 +1,8 @@
-package Model.UI;
-
-import Model.car.Car;
-import Model.process.CarReservation;
-import Model.user.Administer;
-import Model.user.Customer;
-import Model.car.Time;
+import model.car.Car;
+import model.Reservation.CarReservation;
+import model.user.Administer;
+import model.user.Customer;
+import model.car.Time;
 
 import java.time.LocalDate;
 import java.util.LinkedList;

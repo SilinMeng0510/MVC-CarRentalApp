@@ -1,4 +1,4 @@
-package Model.car;
+package model.car;
 
 import java.time.LocalDate;
 

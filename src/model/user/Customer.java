@@ -1,11 +1,10 @@
-package Model.user;
+package model.user;
 
-public class Administer {
+public class Customer {
     private String name;
     private String phone;
 
-
-    public Administer(String name, String phone){
+    public Customer(String name, String phone){
         this.name = name;
         this.phone = phone;
     }
@@ -17,5 +16,6 @@ public class Administer {
     public String getPhone(){
         return phone;
     }
+
 
 }

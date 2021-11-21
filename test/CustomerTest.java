@@ -1,4 +1,4 @@
-import Model.user.Customer;
+import model.user.Customer;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

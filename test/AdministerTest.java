@@ -1,4 +1,4 @@
-import Model.user.Administer;
+import model.user.Administer;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
