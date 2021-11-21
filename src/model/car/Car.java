@@ -1,5 +1,6 @@
 package model.car;
 
+import java.util.Objects;
 import java.util.TreeSet;
 
 public class Car implements Comparable<Car>, Item{
@@ -64,5 +65,18 @@ public class Car implements Comparable<Car>, Item{
             return company.compareTo(o.company);
         }
         return year.compareTo(o.year);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car)) return false;
+        Car car = (Car) o;
+        return this.compareTo(car) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(model, company, year, price);
     }
 }

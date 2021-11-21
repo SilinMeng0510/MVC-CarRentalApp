@@ -1,6 +1,7 @@
 package view;
 
 import controller.AddCarMessage;
+import controller.DeleteCarMessage;
 import controller.Message;
 import model.car.Car;
 
@@ -29,18 +30,15 @@ public class View extends JFrame {
         addCar.setBounds(900, 150, 150, 150);
         addCar.addActionListener(e -> viewCarOption());
 
-        JButton addRes = new JButton("add Reservation");
-        addRes.setBounds(900,150,150,150);
-
-        JButton deleteRes = new JButton("delete Reservation");
-        deleteRes.setBounds(900, 150, 150, 150);
+        JButton reservation = new JButton("add Reservation");
+        reservation.setBounds(900,150,150,150);
+        reservation.addActionListener(e -> reservationOption());
 
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
         // Adding buttons
         buttonPane.add(addCar);
-        buttonPane.add(addRes);
-        buttonPane.add(deleteRes);
+        buttonPane.add(reservation);
 
         // Add Image
         JLabel image = new JLabel(imageCar);
@@ -71,7 +69,7 @@ public class View extends JFrame {
         }
 
         // add car to the storage
-        JPanel add = new JPanel();
+        JPanel action = new JPanel();
         JLabel model = new JLabel("Model name:");
         JLabel company = new JLabel("Company name:");
         JLabel year = new JLabel("Year :");
@@ -81,18 +79,18 @@ public class View extends JFrame {
         JTextField yearTXT = new JTextField(25);
         JTextField priceTXT = new JTextField(20);
 
-        add.add(model);
-        add.add(modelTXT);
-        add.add(company);
-        add.add(companyTXT);
-        add.add(year);
-        add.add(yearTXT);
-        add.add(price);
-        add.add(priceTXT);
+        action.add(model);
+        action.add(modelTXT);
+        action.add(company);
+        action.add(companyTXT);
+        action.add(year);
+        action.add(yearTXT);
+        action.add(price);
+        action.add(priceTXT);
 
-        JButton button = new JButton("Add");
+        JButton AddButton = new JButton("Add");
         // add a listener to button
-        button.addActionListener(e -> {
+        AddButton.addActionListener(e -> {
             try {
                 Car car = new Car(modelTXT.getText(), companyTXT.getText(), yearTXT.getText(), Integer.parseInt(priceTXT.getText()));
                 Message msg = new AddCarMessage(car);
@@ -101,18 +99,41 @@ public class View extends JFrame {
             }
             frame.dispose();
         });
-        add.add(button);
+        action.add(AddButton);
 
-        add.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 129));
+        JButton deleteButton = new JButton("Delete");
+        // add a listener to button
+        deleteButton.addActionListener(e -> {
+            try {
+                Car car = new Car(modelTXT.getText(), companyTXT.getText(), yearTXT.getText(), Integer.parseInt(priceTXT.getText()));
+                Message msg = new DeleteCarMessage(car);
+                this.queue.put(msg);
+            } catch (Exception exception) {
+            }
+            frame.dispose();
+        });
+        action.add(deleteButton);
+
+        action.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 129));
         view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.add(view, BorderLayout.NORTH);
-        frame.add(add, BorderLayout.CENTER);
+        frame.add(action, BorderLayout.CENTER);
         frame.setSize(500, 300);
         frame.setVisible(true);
     }
 
-    public void updateAddCar(TreeSet<Car> cars){
+    private void reservationOption() {
+        JFrame frame = new JFrame("Reservation");
+        frame.getContentPane();
+        frame.setPreferredSize(new Dimension(300, 300));
+
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setSize(500, 300);
+        frame.setVisible(true);
+    }
+
+    public void updateCarStorage(TreeSet<Car> cars){
         this.storage = cars;
         viewCarOption();
     }

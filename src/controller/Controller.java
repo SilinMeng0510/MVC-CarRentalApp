@@ -19,7 +19,7 @@ public class Controller {
         this.view = view;
 
         valves.add(new AddCarValve());
-
+        valves.add(new DeleteCarValve());
     }
 
     public void mainLoop() {
@@ -42,6 +42,20 @@ public class Controller {
         }
     }
 
+    private class DeleteCarValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != DeleteCarMessage.class) {
+                return ValveResponse.MISS;
+            }
+            DeleteCarMessage msg = (DeleteCarMessage) message;
+            carModel.delete(msg.getCar());
+            view.updateCarStorage(carModel.getCars());
+            return ValveResponse.EXECUTED;
+        }
+    }
+
+
     private class AddCarValve implements Valve {
         @Override
         public ValveResponse execute(Message message) {
@@ -50,7 +64,7 @@ public class Controller {
             }
             AddCarMessage msg = (AddCarMessage) message;
             carModel.add(msg.getCar());
-            view.updateAddCar(carModel.getCars());
+            view.updateCarStorage(carModel.getCars());
             return ValveResponse.EXECUTED;
         }
     }
