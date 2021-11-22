@@ -15,8 +15,8 @@ public class View extends JFrame {
     ImageIcon imageCar = new ImageIcon("Car.jpg");
     ImageIcon imageRes = new ImageIcon("hand-car.jpeg");
     ImageIcon imageSto = new ImageIcon("storage.jpeg");
-    ImageIcon imageList = new ImageIcon();
-    ImageIcon imageInvetory = new ImageIcon();
+    ImageIcon imageList = new ImageIcon("funny.jpeg");
+    ImageIcon imageInvetory = new ImageIcon("funnycar.png");
     public static TreeSet<Car> storage = new TreeSet<>();
     public static TreeSet<CarReservation> reservations = new TreeSet<>();
     BlockingQueue<Message> queue;
