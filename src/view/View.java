@@ -1,9 +1,10 @@
 package view;
 
-import controller.AddCarMessage;
-import controller.DeleteCarMessage;
-import controller.Message;
+import controller.*;
+import model.reservation.CarReservation;
 import model.car.Car;
+import model.user.Administer;
+import model.user.Customer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,10 @@ import java.util.concurrent.BlockingQueue;
 
 public class View extends JFrame {
     ImageIcon imageCar = new ImageIcon("Car.jpg");
+    ImageIcon imageRes = new ImageIcon("hand-car.jpeg");
+    ImageIcon imageSto = new ImageIcon("storage.jpeg");
     public static TreeSet<Car> storage = new TreeSet<>();
+    public static TreeSet<CarReservation> reservations = new TreeSet<>();
     BlockingQueue<Message> queue;
     JPanel initial_GUI;
 
@@ -30,15 +34,20 @@ public class View extends JFrame {
         addCar.setBounds(900, 150, 150, 150);
         addCar.addActionListener(e -> viewCarOption());
 
-        JButton reservation = new JButton("add Reservation");
+        JButton reservation = new JButton("Reservation");
         reservation.setBounds(900,150,150,150);
         reservation.addActionListener(e -> reservationOption());
+
+        JButton list = new JButton("Current List");
+        list.setBounds(900,150,150,150);
+        list.addActionListener(e -> reservationViewOption());
 
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
         // Adding buttons
         buttonPane.add(addCar);
         buttonPane.add(reservation);
+        buttonPane.add(list);
 
         // Add Image
         JLabel image = new JLabel(imageCar);
@@ -63,7 +72,6 @@ public class View extends JFrame {
         for(Car car: storage){
             String s= car.getCompany() + " " + car.getModel() + " " + car.getYear() + "\n" + "$" + car.getPrice() + "/day";
             JTextArea listDisplay = new JTextArea();
-            System.out.println(s);
             listDisplay.setText(s);
             view.add(listDisplay);
         }
@@ -96,6 +104,7 @@ public class View extends JFrame {
                 Message msg = new AddCarMessage(car);
                 this.queue.put(msg);
             } catch (Exception exception) {
+                errorOption(exception);
             }
             frame.dispose();
         });
@@ -109,6 +118,7 @@ public class View extends JFrame {
                 Message msg = new DeleteCarMessage(car);
                 this.queue.put(msg);
             } catch (Exception exception) {
+                errorOption(exception);
             }
             frame.dispose();
         });
@@ -119,7 +129,8 @@ public class View extends JFrame {
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.add(view, BorderLayout.NORTH);
         frame.add(action, BorderLayout.CENTER);
-        frame.setSize(500, 300);
+        frame.add(new JLabel(imageSto), BorderLayout.SOUTH);
+        frame.setSize(1200, 700);
         frame.setVisible(true);
     }
 
@@ -128,13 +139,130 @@ public class View extends JFrame {
         frame.getContentPane();
         frame.setPreferredSize(new Dimension(300, 300));
 
+
+        // add reservation to the list
+        JPanel action = new JPanel();
+        // user information
+        JLabel customer = new JLabel("Customer:");
+        JLabel phone = new JLabel("Phone:");
+        JLabel administer = new JLabel("Administer:");
+        JLabel id = new JLabel("Admin ID:");
+        JTextField customerTXT = new JTextField(20);
+        JTextField phoneTXT = new JTextField(25);
+        JTextField administerTXT = new JTextField(25);
+        JTextField idTXT = new JTextField(20);
+        action.add(customer);
+        action.add(customerTXT);
+        action.add(phone);
+        action.add(phoneTXT);
+        action.add(administer);
+        action.add(administerTXT);
+        action.add(id);
+        action.add(idTXT);
+        // car information
+        JLabel cut = new JLabel("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        JLabel model = new JLabel("Car Model:");
+        JLabel company = new JLabel("Car Maker:");
+        JLabel year = new JLabel("Car Year:");
+        JLabel price = new JLabel("Car Price:");
+        JTextField modelTXT = new JTextField(20);
+        JTextField companyTXT = new JTextField(25);
+        JTextField yearTXT = new JTextField(25);
+        JTextField priceTXT = new JTextField(20);
+        action.add(cut);
+        action.add(model);
+        action.add(modelTXT);
+        action.add(company);
+        action.add(companyTXT);
+        action.add(year);
+        action.add(yearTXT);
+        action.add(price);
+        action.add(priceTXT);
+
+        JButton createButton = new JButton("Create");
+        // add a listener to button
+        createButton.addActionListener(e -> {
+            try{
+                Car c = new Car(modelTXT.getText(), companyTXT.getText(), yearTXT.getText(), Integer.parseInt(priceTXT.getText()));
+                Customer cus = new Customer(customerTXT.getText(), phoneTXT.getText());
+                Administer admin = new Administer(administerTXT.getText(), idTXT.getText());
+                CarReservation reservation = new CarReservation(c, cus, admin);
+                Message msg = new CreateReservationMessage(reservation);
+                queue.put(msg);
+            } catch(Exception exception){
+                errorOption(exception);
+            };
+        });
+        action.add(createButton);
+
+        JButton returnButton = new JButton("Return");
+        // add a listener to button
+        returnButton.addActionListener(e -> {
+            try{
+                Car c = new Car(modelTXT.getText(), companyTXT.getText(), yearTXT.getText(), Integer.parseInt(priceTXT.getText()));
+                Customer cus = new Customer(customerTXT.getText(), phoneTXT.getText());
+                Administer admin = new Administer(administerTXT.getText(), idTXT.getText());
+                CarReservation reservation = new CarReservation(c, cus, admin);
+                Message msg = new DeleteReservationMessage(reservation);
+                queue.put(msg);
+            } catch(Exception exception){
+                errorOption(exception);
+            };
+        });
+        action.add(returnButton);
+
+        action.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 129));
+        frame.add(action, BorderLayout.CENTER);
+        frame.add(new JLabel(imageRes), BorderLayout.SOUTH);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.setSize(500, 300);
+        frame.setSize(900, 800);
+        frame.setVisible(true);
+    }
+
+    public void reservationViewOption(){
+        JFrame frame = new JFrame("Reservation List");
+        frame.getContentPane();
+        frame.setPreferredSize(new Dimension(300, 300));
+
+        // view the reservation
+        JPanel view = new JPanel();
+        for(CarReservation res: reservations){
+            Customer customer = res.getCustomer();
+            Administer administer = res.getAdminister();
+            Car car = res.getCar();
+            String s = car.getCompany() + " " + car.getModel() + " " + car.getYear() + "(" + "$" + car.getPrice() + "/day)" +
+                    " is reserved by " + customer.getName() +"(Phone: " + customer.getPhone() + ")" + ", and assigned by " +
+                    administer.getName() + "(" + administer.getID() + ").";
+            JTextArea listDisplay = new JTextArea();
+            listDisplay.setText(s);
+            view.add(listDisplay);
+
+            view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 129));
+            frame.add(view, BorderLayout.CENTER );
+            frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+            frame.setSize(900, 800);
+            frame.setVisible(true);
+        }
+    }
+
+    public void errorOption(Exception e){
+        JFrame frame = new JFrame("Error");
+        frame.getContentPane();
+        frame.setPreferredSize(new Dimension(300, 300));
+        frame.add(new JLabel("Error: " + e.getMessage()), BorderLayout.NORTH);
+        frame.add(new JLabel(new ImageIcon("error.jpeg")), BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setSize(900, 800);
         frame.setVisible(true);
     }
 
     public void updateCarStorage(TreeSet<Car> cars){
         this.storage = cars;
         viewCarOption();
+    }
+
+    public void updateReservation(TreeSet<CarReservation> reservations){
+        this.reservations = reservations;
+        reservationViewOption();
     }
 }

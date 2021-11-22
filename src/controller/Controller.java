@@ -1,5 +1,6 @@
 package controller;
 
+import model.reservation.ReservationList;
 import model.car.CarStorage;
 import view.View;
 
@@ -10,16 +11,20 @@ import java.util.concurrent.BlockingQueue;
 public class Controller {
     BlockingQueue<Message> queue;
     CarStorage carModel;
+    ReservationList reservationModel;
     View view;
     private List<Valve> valves = new LinkedList<>();
 
-    public Controller(BlockingQueue<Message> queue, CarStorage carModel, View view){
+    public Controller(BlockingQueue<Message> queue, CarStorage carModel, ReservationList reservationModel, View view){
         this.queue = queue;
         this.carModel = carModel;
+        this.reservationModel = reservationModel;
         this.view = view;
 
         valves.add(new AddCarValve());
         valves.add(new DeleteCarValve());
+        valves.add(new CreateReservationValve());
+        valves.add(new DeleteReservationValve());
     }
 
     public void mainLoop() {
@@ -42,6 +47,32 @@ public class Controller {
         }
     }
 
+    private class DeleteReservationValve implements Valve{
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != DeleteReservationMessage.class) {
+                return ValveResponse.MISS;
+            }
+            DeleteReservationMessage msg = (DeleteReservationMessage) message;
+            reservationModel.delete(msg.getReservation());
+            view.updateReservation(reservationModel.getSet());
+            return ValveResponse.EXECUTED;
+        }
+    }
+
+    private class CreateReservationValve implements Valve{
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != CreateReservationMessage.class) {
+                return ValveResponse.MISS;
+            }
+            CreateReservationMessage msg = (CreateReservationMessage) message;
+            reservationModel.add(msg.getReservation());
+            view.updateReservation(reservationModel.getSet());
+            return ValveResponse.EXECUTED;
+        }
+    }
+
     private class DeleteCarValve implements Valve {
         @Override
         public ValveResponse execute(Message message) {
@@ -54,7 +85,6 @@ public class Controller {
             return ValveResponse.EXECUTED;
         }
     }
-
 
     private class AddCarValve implements Valve {
         @Override

@@ -1,5 +1,6 @@
 import controller.Controller;
 import controller.Message;
+import model.reservation.ReservationList;
 import model.car.CarStorage;
 import view.View;
 
@@ -11,9 +12,10 @@ public class App {
         BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
 
         CarStorage carModel = new CarStorage();
+        ReservationList reservationModel = new ReservationList();
 
         View view = new View(queue);
-        Controller controller = new Controller(queue, carModel, view);
+        Controller controller = new Controller(queue, carModel, reservationModel, view);
         controller.mainLoop();
     }
 }

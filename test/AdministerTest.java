@@ -11,7 +11,7 @@ class AdministerTest {
     }
 
     @Test
-    void getPhone() {
-        assertEquals(administer.getPhone(),"4089999999");
+    void getID() {
+        assertEquals(administer.getID(),"4089999999");
     }
 }

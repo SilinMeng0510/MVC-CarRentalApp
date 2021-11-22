@@ -5,8 +5,8 @@ public class Customer {
     private String phone;
 
     public Customer(String name, String phone){
-        this.name = name;
-        this.phone = phone;
+        this.name = name.toUpperCase();
+        this.phone = phone.toUpperCase();
     }
 
     public String getName(){
