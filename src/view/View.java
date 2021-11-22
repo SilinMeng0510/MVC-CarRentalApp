@@ -15,6 +15,8 @@ public class View extends JFrame {
     ImageIcon imageCar = new ImageIcon("Car.jpg");
     ImageIcon imageRes = new ImageIcon("hand-car.jpeg");
     ImageIcon imageSto = new ImageIcon("storage.jpeg");
+    ImageIcon imageList = new ImageIcon();
+    ImageIcon imageInvetory = new ImageIcon();
     public static TreeSet<Car> storage = new TreeSet<>();
     public static TreeSet<CarReservation> reservations = new TreeSet<>();
     BlockingQueue<Message> queue;
@@ -141,7 +143,8 @@ public class View extends JFrame {
         }
 
         view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        frame.add(view);
+        frame.add(view, BorderLayout.NORTH);
+        frame.add(new JLabel(imageInvetory), BorderLayout.CENTER);
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.setSize(1200, 700);
         frame.setVisible(true);
@@ -252,13 +255,14 @@ public class View extends JFrame {
         }
 
             view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 129));
-            frame.add(view);
+            frame.add(view, BorderLayout.NORTH);
+            frame.add(new JLabel(imageList), BorderLayout.CENTER);
             frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
             frame.setSize(900, 800);
             frame.setVisible(true);
     }
 
-    private void errorOption(Exception e){
+    private void errorOption(Exception e) {
         JFrame frame = new JFrame("Error");
         frame.getContentPane();
         frame.setPreferredSize(new Dimension(300, 300));
