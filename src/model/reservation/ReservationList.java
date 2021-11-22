@@ -10,7 +10,7 @@ public class ReservationList {
         cars = new TreeMap<>();
     }
 
-    public void add(CarReservation reservation){
+    public void add(CarReservation reservation) {
         cars.put(reservation.getKey(), reservation);
     }
 

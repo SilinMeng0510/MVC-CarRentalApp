@@ -12,7 +12,7 @@ public class CarReservation implements Comparable<CarReservation>{
     private Administer administer;
     private int key;
 
-    public CarReservation(Car car, Customer customer, Administer administer) throws Exception{
+    public CarReservation(Car car, Customer customer, Administer administer) {
         this.car = car;
         this.customer = customer;
         this.administer = administer;
