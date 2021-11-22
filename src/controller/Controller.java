@@ -1,5 +1,7 @@
 package controller;
 
+import model.car.Car;
+import model.reservation.CarReservation;
 import model.reservation.ReservationList;
 import model.car.CarStorage;
 import view.View;
@@ -55,6 +57,8 @@ public class Controller {
             }
             DeleteReservationMessage msg = (DeleteReservationMessage) message;
             reservationModel.delete(msg.getReservation());
+            carModel.add(msg.getReservation().getCar());
+            view.updateCarStorage(carModel.getCars());
             view.updateReservation(reservationModel.getSet());
             return ValveResponse.EXECUTED;
         }
@@ -67,8 +71,16 @@ public class Controller {
                 return ValveResponse.MISS;
             }
             CreateReservationMessage msg = (CreateReservationMessage) message;
-            reservationModel.add(msg.getReservation());
-            view.updateReservation(reservationModel.getSet());
+            Car c = msg.getReservation().getCar();
+            for (Car car : carModel.getCars()){
+                if (car.equals(c)){
+                    reservationModel.add(msg.getReservation());
+                    carModel.delete(car);
+                    view.updateCarStorage(carModel.getCars());
+                    view.updateReservation(reservationModel.getSet());
+                    break;
+                }
+            }
             return ValveResponse.EXECUTED;
         }
     }

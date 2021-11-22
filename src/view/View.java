@@ -30,24 +30,29 @@ public class View extends JFrame {
         initial_GUI.setLayout(new BoxLayout(initial_GUI, BoxLayout.LINE_AXIS));
 
         // Add Cars
-        JButton addCar = new JButton("Car Storage");
+        JButton addCar = new JButton("Update Storage");
         addCar.setBounds(900, 150, 150, 150);
-        addCar.addActionListener(e -> viewCarOption());
+        addCar.addActionListener(e -> addCarOption());
 
-        JButton reservation = new JButton("Reservation");
+        JButton reservation = new JButton("New Reservation");
         reservation.setBounds(900,150,150,150);
         reservation.addActionListener(e -> reservationOption());
 
-        JButton list = new JButton("Current List");
+        JButton list = new JButton("Now Reservations");
         list.setBounds(900,150,150,150);
         list.addActionListener(e -> reservationViewOption());
+
+        JButton storage = new JButton("Current Storage");
+        storage.setBounds(900,150,150,150);
+        storage.addActionListener(e -> storageViewOption());
 
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.Y_AXIS));
         // Adding buttons
+        buttonPane.add(storage);
         buttonPane.add(addCar);
-        buttonPane.add(reservation);
         buttonPane.add(list);
+        buttonPane.add(reservation);
 
         // Add Image
         JLabel image = new JLabel(imageCar);
@@ -62,19 +67,10 @@ public class View extends JFrame {
     }
 
 
-    private void viewCarOption() {
-        JFrame frame = new JFrame("Car Storage");
+    private void addCarOption() {
+        JFrame frame = new JFrame("Update Storage");
         frame.getContentPane();
         frame.setPreferredSize(new Dimension(300, 300));
-
-        // view the car storage
-        JPanel view = new JPanel();
-        for(Car car: storage){
-            String s= car.getCompany() + " " + car.getModel() + " " + car.getYear() + "\n" + "$" + car.getPrice() + "/day";
-            JTextArea listDisplay = new JTextArea();
-            listDisplay.setText(s);
-            view.add(listDisplay);
-        }
 
         // add car to the storage
         JPanel action = new JPanel();
@@ -106,7 +102,6 @@ public class View extends JFrame {
             } catch (Exception exception) {
                 errorOption(exception);
             }
-            frame.dispose();
         });
         action.add(AddButton);
 
@@ -120,16 +115,34 @@ public class View extends JFrame {
             } catch (Exception exception) {
                 errorOption(exception);
             }
-            frame.dispose();
         });
         action.add(deleteButton);
 
         action.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 129));
-        view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.add(view, BorderLayout.NORTH);
         frame.add(action, BorderLayout.CENTER);
         frame.add(new JLabel(imageSto), BorderLayout.SOUTH);
+        frame.setSize(1200, 700);
+        frame.setVisible(true);
+    }
+
+    private void storageViewOption(){
+        JFrame frame = new JFrame("Car Storage");
+        frame.getContentPane();
+        frame.setPreferredSize(new Dimension(300, 300));
+
+        // view the car storage
+        JPanel view = new JPanel();
+        for(Car car: storage){
+            String s= car.getCompany() + " " + car.getModel() + " " + car.getYear() + "\n" + "$" + car.getPrice() + "/day";
+            JTextArea listDisplay = new JTextArea();
+            listDisplay.setText(s);
+            view.add(listDisplay);
+        }
+
+        view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        frame.add(view);
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.setSize(1200, 700);
         frame.setVisible(true);
     }
@@ -219,33 +232,33 @@ public class View extends JFrame {
         frame.setVisible(true);
     }
 
-    public void reservationViewOption(){
+    private void reservationViewOption(){
         JFrame frame = new JFrame("Reservation List");
         frame.getContentPane();
         frame.setPreferredSize(new Dimension(300, 300));
 
         // view the reservation
         JPanel view = new JPanel();
-        for(CarReservation res: reservations){
+        for(CarReservation res: reservations) {
             Customer customer = res.getCustomer();
             Administer administer = res.getAdminister();
             Car car = res.getCar();
             String s = car.getCompany() + " " + car.getModel() + " " + car.getYear() + "(" + "$" + car.getPrice() + "/day)" +
-                    " is reserved by " + customer.getName() +"(Phone: " + customer.getPhone() + ")" + ", and assigned by " +
+                    " is reserved by " + customer.getName() + "(Phone: " + customer.getPhone() + ")" + ", and assigned by " +
                     administer.getName() + "(" + administer.getID() + ").";
             JTextArea listDisplay = new JTextArea();
             listDisplay.setText(s);
             view.add(listDisplay);
+        }
 
             view.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 129));
-            frame.add(view, BorderLayout.CENTER );
+            frame.add(view);
             frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
             frame.setSize(900, 800);
             frame.setVisible(true);
-        }
     }
 
-    public void errorOption(Exception e){
+    private void errorOption(Exception e){
         JFrame frame = new JFrame("Error");
         frame.getContentPane();
         frame.setPreferredSize(new Dimension(300, 300));
@@ -258,7 +271,7 @@ public class View extends JFrame {
 
     public void updateCarStorage(TreeSet<Car> cars){
         this.storage = cars;
-        viewCarOption();
+        storageViewOption();
     }
 
     public void updateReservation(TreeSet<CarReservation> reservations){
