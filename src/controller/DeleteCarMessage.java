@@ -2,6 +2,9 @@ package controller;
 
 import model.car.Car;
 
+/**
+ * DeleteCarMessage
+ */
 public class DeleteCarMessage implements Message {
     Car car;
 

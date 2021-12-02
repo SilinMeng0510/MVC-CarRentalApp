@@ -8,6 +8,11 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class App {
+
+    /**
+     * main funciotn to run the application
+     * @param args
+     */
     public static void main(String[] args) {
         BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
 

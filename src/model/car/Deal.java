@@ -1,5 +1,7 @@
 package model.car;
 
+
+
 public class Deal implements Item{
     Car car;
     double percentage;

@@ -1,15 +1,17 @@
 package controller;
 
 import model.car.Car;
-import model.reservation.CarReservation;
-import model.reservation.ReservationList;
 import model.car.CarStorage;
+import model.reservation.ReservationList;
 import view.View;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Controller is a part of MVC model.
+ */
 public class Controller {
     BlockingQueue<Message> queue;
     CarStorage carModel;
@@ -17,6 +19,13 @@ public class Controller {
     View view;
     private List<Valve> valves = new LinkedList<>();
 
+    /**
+     *
+     * @param queue
+     * @param carModel
+     * @param reservationModel
+     * @param view
+     */
     public Controller(BlockingQueue<Message> queue, CarStorage carModel, ReservationList reservationModel, View view){
         this.queue = queue;
         this.carModel = carModel;
@@ -29,6 +38,9 @@ public class Controller {
         valves.add(new DeleteReservationValve());
     }
 
+    /**
+     * MainLoop takes next message from the queue and look for a value that can process a message.If sucessfully process or game over, it leaves the loop.
+     */
     public void mainLoop() {
         ValveResponse response = ValveResponse.EXECUTED;
         Message message = null;
@@ -49,7 +61,16 @@ public class Controller {
         }
     }
 
+    /**
+     * The funciton for this class it o DeleteResrvationValue.It implements the Valve class and overrides the execute class.
+     */
     private class DeleteReservationValve implements Valve{
+
+        /**
+         *
+         * @param message
+         * @return
+         */
         @Override
         public ValveResponse execute(Message message) {
             if (message.getClass() != DeleteReservationMessage.class) {
@@ -64,7 +85,16 @@ public class Controller {
         }
     }
 
+    /**
+     * The function for this class it o CreateReservation.It implements the Valve class and overrides the execute class.
+     */
     private class CreateReservationValve implements Valve{
+
+        /**
+         *
+         * @param message
+         * @return
+         */
         @Override
         public ValveResponse execute(Message message) {
             if (message.getClass() != CreateReservationMessage.class) {
@@ -85,7 +115,16 @@ public class Controller {
         }
     }
 
+    /**
+     * The function for this class it o delete car valve.It implements the Valve class and overrides the execute class.
+     */
     private class DeleteCarValve implements Valve {
+
+        /**
+         *
+         * @param message
+         * @return
+         */
         @Override
         public ValveResponse execute(Message message) {
             if (message.getClass() != DeleteCarMessage.class) {
@@ -98,7 +137,16 @@ public class Controller {
         }
     }
 
+    /**
+     *  The function for this class it o add car valve.It implements the Valve class and overrides the execute class.
+     */
     private class AddCarValve implements Valve {
+
+        /**
+         *
+         * @param message
+         * @return
+         */
         @Override
         public ValveResponse execute(Message message) {
             if (message.getClass() != AddCarMessage.class){
