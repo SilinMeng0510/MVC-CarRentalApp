@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Declare the class Car. Car has model, company, year and price. It also implements the comparable to comapre two cars.
  */
-public class Car implements Comparable<Car>, Item{
+public class Car implements Comparable<Car>{
     private String model;
     private String company;
     private String year;
